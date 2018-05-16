@@ -1,6 +1,4 @@
-﻿<link rel="stylesheet" href= "modest.css">
-
-# remote_shark {.modest-h1}
+# remote_shark
 
 Use a Windows command file to do remote capture with Wireshark.
 
