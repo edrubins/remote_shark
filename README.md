@@ -21,4 +21,3 @@ remote_shark user remote interface
    remote: The server name. Some Windows systems will require this to a fully qualified domain name (FQDN) in order to do DNS look up on a local network. If trying to connect produces a not found error, try appending a '.' to the server name.
 
    interface: The interface on the remote system from which to capture packets.
-
