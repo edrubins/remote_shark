@@ -2,13 +2,19 @@
 :: Purpose:	Execute tcpdump on a remote system box via ssh from a Windows machine
 :: 		and pipe the captured packets to wireshark locally.
 :: Author:	erubinskt@chaveirisystems.com
-:: Revisions:	May 15, 2018. Initial version.
+:: Revisions:
+::  0.9 May 15, 2018. Initial version.
 :: Called as:	remote_wireshark.cmd user remote interface
 ::    user: A user on the remote system with sufficient privileges to run tcpdump.
 ::    remote: The remote system to be monitored.
 ::    interface: The interface to monitor.
 ::    remote_wireshark.cmd root somemachine eth0
 ::
+:: 0.9.1 May 18 2018
+::   Add additional positional parameters for passing options to tcpdump
+::   The example below shows a wifi capture in monitor mode and printing the link
+::   level headers.
+::   remote_shark>remote_shark.cmd root ubuntu4. wlan0 --monitor-mode -e
 :: Requirements.
 :: ssh must be able to make the connection using authentication keys, i.e. without entering a password.
 ::
@@ -25,8 +31,9 @@ for %%x in (%*) do (
    set /A argCount+=1
    set "argVec[!argCount!]=%%~x"
  )
- IF !argCount! NEQ 3 (
-   echo Usage: %0 user_name remote_system interface
+
+ IF !argCount! LSS 3 (
+   echo Usage: %0 user_name remote_system interface tcpdum arguements
    goto fini
  )
 
@@ -51,6 +58,11 @@ SET remote=%2
 
 :: Remote interface
 set interface=%3
+
+IF !argCount! GEQ 4 (
+  FOR /L %%i IN (4,1,!argVec!) DO ECHO %i
+)
+GOTO fini
 
 :: The ssh command to start the capture.
 :: The interface to capture on follows the -i.

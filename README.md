@@ -12,11 +12,27 @@ remote_shark.cmd provides remote capture capability between Wireshark running on
 
 ### Usage
 
-remote_shark user remote interface
+remote_shark user remote interface tcpdump_-arguments
 
    user: A user on the remote system with sufficient privileges to run tcpdump. The remote system must be able to authenticate this user with authentication keys, i.e. there is no password prompt when establishing the connection.
 
    remote: The server name. Some Windows systems will require this to a fully qualified domain name (FQDN) in order to do DNS look up on a local network. If trying to connect produces a not found error, try appending a '.' to the server name.
 
    interface: The interface on the remote system from which to capture packets.
+
+
+
+   tcpdump-arguments: Additional arguments to passed to tcpdump.
+
+### Samples
+
+Monitor eht0 as user ed on server1@example.com
+
+`remote_wireshark.cmd ed example.com eth0`
+
+Monitor wlan0 in monitor (promiscuous) mode, displaying link level data.
+
+`remote_shark>remote_shark.cmd ed server1.example.com wlan0 --monitor-mode -e`
+
+
 
