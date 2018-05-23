@@ -62,7 +62,6 @@ set interface=%3
 IF !argCount! GEQ 4 (
   FOR /L %%i IN (4,1,!argVec!) DO ECHO %i
 )
-GOTO fini
 
 :: The ssh command to start the capture.
 :: The interface to capture on follows the -i.
@@ -77,7 +76,6 @@ SET shark=wireshark.exe -k -i -
 :: Do it. Note that may be delay before packets are displayed when this script is started, as well as a delay before
 :: this script to terminates after exiting Wireshark. This is (probably) due to the time it takes to build the ssh connection
 :: at startup and flush the pipe and take down the ssh connection on termination.
-ECHO %ssh_cmd%
 
 %ssh_cmd% | %shark%
 
